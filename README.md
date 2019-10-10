@@ -48,6 +48,6 @@ Caso esteja usando Docker e Docker-compose, pode usar o comando Make abaixo para
 $ make test
 ```
 ### Attention, please
--- Visando utilizar apenas o container de dependência nativo do .NET Core, foi adotado um método "elegante" para injetar mais de uma classe concreta referente à mesma interface de repositório (ver *IoC.ExampleModule*). É favor notar que este método visa ser o mais simples possível (utiliza de strings para determinar qual injeção utilizar) para a situação e deve ser melhorado em uma implementação real (ou deve-se utilizar container de terceiros com suporte à esta funcionalidade).
--- É favor ter em mente que regras de negócio, regras de segurança ou políticas de resiliência não foram levados em consideração durante o desenvolvimento desta solução.
--- Foi incluído um recurso de health check para o RabbitMQ (a título de exemplo) que pode ser acessado no link: [http://localhost:8081/healthchecks-ui#/healthchecks](http://localhost:8081/healthchecks-ui#/healthchecks)
+* Visando utilizar apenas o container de dependência nativo do .NET Core, foi adotado um método "elegante" para injetar mais de uma classe concreta referente à mesma interface de repositório (ver *IoC.ExampleModule*). É favor notar que este método visa ser o mais simples possível (utiliza de strings para determinar qual injeção utilizar) para a situação e deve ser melhorado em uma implementação real (ou deve-se utilizar container de terceiros com suporte à esta funcionalidade).
+* É favor ter em mente que regras de negócio, regras de segurança ou políticas de resiliência não foram levados em consideração durante o desenvolvimento desta solução.
+* Foi incluído um recurso de health check para o RabbitMQ (a título de exemplo) que pode ser acessado no link: [http://localhost:8081/healthchecks-ui#/healthchecks](http://localhost:8081/healthchecks-ui#/healthchecks)
