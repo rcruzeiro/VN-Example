@@ -1,4 +1,4 @@
-# FC / SD Account Manager
+# VN User Behavior Manager
 Microsserviço para Gerenciamento de Comportamento do Usuário visando atender cenário de teste prático VN.
 
 ### Before you start
