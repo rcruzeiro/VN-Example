@@ -35,9 +35,7 @@ Caso não deseje utilizar o Docker, poderá também utilizar o Kestrel para inic
 ### Docs
 A documentação da API (Swagger) poderá ser acessada em:
 
-```console
 [http://localhost:8081/docs](http://localhost:8081/docs)
-```
 
 ### Testing before the test
 A solução contém também um projeto de Testes do domínio, a título de exemplo, criado em xUnit e fazendo uso da biblioteca Moq.
