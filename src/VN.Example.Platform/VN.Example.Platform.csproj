@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Domain\" />
+        <Folder Include="Application\" />
+        <Folder Include="Domain\BehaviorAggregation\" />
+        <Folder Include="Domain\BehaviorAggregation\Commands\" />
+        <Folder Include="Domain\BehaviorAggregation\Specifications\" />
+        <Folder Include="Application\BehaviorService\" />
+        <Folder Include="Domain\Framework\" />
+        <Folder Include="Domain\Framework\Helpers\" />
+        <Folder Include="Domain\Framework\Interfaces\" />
+        <Folder Include="Domain\BehaviorAggregation\Events\" />
+        <Folder Include="Application\BehaviorService\DTOs\" />
+        <Folder Include="Application\BehaviorService\Exceptions\" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\VN.Example.Infrastructure.Provider.MessageBus\VN.Example.Infrastructure.Provider.MessageBus.csproj" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="RabbitMQ.Client" Version="5.1.1" />
+      <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="2.2.4" />
+      <PackageReference Include="AspNetCore.HealthChecks.UI" Version="2.2.35" />
+      <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="2.2.1" />
+    </ItemGroup>
+</Project>

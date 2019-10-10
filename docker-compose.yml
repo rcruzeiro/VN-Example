@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  vn.example.host.web:
+    image: ${DOCKER_REGISTRY-}vnexamplehost
+    build:
+      context: .
+      dockerfile: src/VN.Example.Host.Web/Dockerfile
