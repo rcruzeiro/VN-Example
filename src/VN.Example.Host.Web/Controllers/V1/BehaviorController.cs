@@ -143,7 +143,7 @@ namespace VN.Example.Host.Web.Controllers.V1
         {
             try
             {
-                await _behaviorAppService.CreateBehaviorAsync(request, cancellationToken);
+                await _behaviorAppService.DispatchBehavior(request, cancellationToken);
 
                 return Created("", null); // 201
             }

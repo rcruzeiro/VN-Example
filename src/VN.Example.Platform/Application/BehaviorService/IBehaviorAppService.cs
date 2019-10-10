@@ -12,5 +12,7 @@ namespace VN.Example.Platform.Application.BehaviorService
         Task<BehaviorDto> GetBehaviorAsync(string ip, string pageName, string userAgent, CancellationToken cancellationToken = default);
 
         Task CreateBehaviorAsync(CreateBehaviorDto dto, CancellationToken cancellationToken = default);
+
+        Task DispatchBehavior(CreateBehaviorDto dto, CancellationToken cancellationToken = default);
     }
 }

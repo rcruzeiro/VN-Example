@@ -4,4 +4,14 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="CouchbaseNetClient" Version="2.7.12" />
+      <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Repositories\" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\VN.Example.Platform\VN.Example.Platform.csproj" />
+    </ItemGroup>
 </Project>

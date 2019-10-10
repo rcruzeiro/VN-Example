@@ -14,10 +14,10 @@ namespace VN.Example.Platform.Application.BehaviorService
 {
     public sealed class BehaviorAppService : IBehaviorAppService
     {
-        private readonly IBehaviorRepository _behaviorRepository;
+        private readonly BehaviorRepositoryResolver _behaviorRepository;
         private readonly IMessageService _messageService;
 
-        public BehaviorAppService(IBehaviorRepository behaviorRepository, IMessageService messageService)
+        public BehaviorAppService(BehaviorRepositoryResolver behaviorRepository, IMessageService messageService)
         {
             _behaviorRepository = behaviorRepository ?? throw new ArgumentNullException(nameof(behaviorRepository));
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
@@ -30,7 +30,7 @@ namespace VN.Example.Platform.Application.BehaviorService
                 if (string.IsNullOrWhiteSpace(ip)) throw new ArgumentNullException(nameof(ip));
 
                 var spec = new BehaviorByIPSpecification(ip);
-                var behaviors = await _behaviorRepository.GetBehaviors(spec, cancellationToken);
+                var behaviors = await _behaviorRepository("MSSQL").GetBehaviors(spec, cancellationToken);
                 var assembledBehaviors = new List<BehaviorDto>();
 
                 behaviors.ToList().ForEach(b =>
@@ -53,7 +53,7 @@ namespace VN.Example.Platform.Application.BehaviorService
                 if (string.IsNullOrWhiteSpace(pageName)) throw new ArgumentNullException(nameof(pageName));
 
                 var spec = new BehaviorByPageNameSpecification(pageName);
-                var behaviors = await _behaviorRepository.GetBehaviors(spec, cancellationToken);
+                var behaviors = await _behaviorRepository("MSSQL").GetBehaviors(spec, cancellationToken);
                 var assembledBehaviors = new List<BehaviorDto>();
 
                 behaviors.ToList().ForEach(b =>
@@ -78,7 +78,7 @@ namespace VN.Example.Platform.Application.BehaviorService
                 if (string.IsNullOrWhiteSpace(userAgent)) throw new ArgumentNullException(nameof(userAgent));
 
                 var spec = new BehaviorByUniqueSpecification(ip, pageName, userAgent);
-                var behavior = await _behaviorRepository.GetBehaviors(spec, cancellationToken);
+                var behavior = await _behaviorRepository("MSSQL").GetBehaviors(spec, cancellationToken);
 
                 if (!behavior.Any()) return null;
 
@@ -102,7 +102,25 @@ namespace VN.Example.Platform.Application.BehaviorService
                 var behavior = new Behavior(command);
 
                 // create behavior in MSSQL
-                await _behaviorRepository.CreateBehavior(behavior, cancellationToken);
+                await _behaviorRepository("MSSQL").CreateBehavior(behavior, cancellationToken);
+
+                // create behavior in Couchbase
+                await _behaviorRepository("Couch").CreateBehavior(behavior, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new CreateBehaviorException(
+                    $"An error occurred when trying to create behavior for IP {dto.IP} and page name {dto.PageName}. See inner exception for details.",
+                    ex);
+            }
+        }
+
+        public async Task DispatchBehavior(CreateBehaviorDto dto, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var command = dto.Assemble();
+                var behavior = new Behavior(command);
 
                 // dispatch domain event
                 var @event = new BehaviorCreatedEvent(behavior.Id,

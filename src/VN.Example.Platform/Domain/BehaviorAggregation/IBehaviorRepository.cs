@@ -11,4 +11,6 @@ namespace VN.Example.Platform.Domain.BehaviorAggregation
 
         Task CreateBehavior(Behavior behavior, CancellationToken cancellationToken = default);
     }
+
+    public delegate IBehaviorRepository BehaviorRepositoryResolver(string database);
 }

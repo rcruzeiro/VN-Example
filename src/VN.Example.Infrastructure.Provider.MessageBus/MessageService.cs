@@ -10,11 +10,23 @@ namespace VN.Example.Infrastructure.Provider.MessageBus
 {
     public class MessageService : IMessageService
     {
-        private readonly RabbitMQConfiguration _rabbitMQConfiguration;
+        private readonly IConnection _connection;
+        private readonly IModel _channel;
 
         public MessageService(RabbitMQConfiguration rabbitMQConfiguration)
         {
-            _rabbitMQConfiguration = rabbitMQConfiguration ?? throw new ArgumentNullException(nameof(rabbitMQConfiguration));
+            if (rabbitMQConfiguration == null) throw new ArgumentNullException(nameof(rabbitMQConfiguration));
+
+            var factory = new ConnectionFactory
+            {
+                HostName = rabbitMQConfiguration.HostName,
+                Port = rabbitMQConfiguration.Port,
+                UserName = rabbitMQConfiguration.Username,
+                Password = rabbitMQConfiguration.Password
+            };
+
+            _connection = factory.CreateConnection();
+            _channel = _connection.CreateModel();
         }
 
         public Task PublishAsync<T>(string topicName, T data, CancellationToken cancellationToken = default)
@@ -22,72 +34,55 @@ namespace VN.Example.Infrastructure.Provider.MessageBus
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var factory = new ConnectionFactory
-            {
-                HostName = _rabbitMQConfiguration.HostName,
-                Port = _rabbitMQConfiguration.Port,
-                UserName = _rabbitMQConfiguration.Username,
-                Password = _rabbitMQConfiguration.Password
-            };
+            _channel.QueueDeclare(topicName,
+                                 false,
+                                 false,
+                                 false,
+                                 null);
+            string message = JsonConvert.SerializeObject(data);
+            var body = Encoding.UTF8.GetBytes(message);
 
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(topicName,
-                                     false,
-                                     false,
-                                     false,
-                                     null);
-                string message =
-                    $"{DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss")} - message: {JsonConvert.SerializeObject(data)}";
-                var body = Encoding.UTF8.GetBytes(message);
-
-                channel.BasicPublish(string.Empty,
-                                     topicName,
-                                     null,
-                                     body);
-            }
+            _channel.BasicPublish(string.Empty,
+                                 topicName,
+                                 null,
+                                 body);
 
             return Task.CompletedTask;
         }
 
-        public Task<T> ConsumeAsync<T>(string topicName, CancellationToken cancellationToken = default)
-            where T : class
+        public Task ConsumeAsync(string topicName, EventHandler<BasicDeliverEventArgs> handler, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            T result = default;
+            _channel.QueueDeclare(topicName,
+                                 false,
+                                 false,
+                                 false,
+                                 null);
+            var consumer = new EventingBasicConsumer(_channel);
 
-            var factory = new ConnectionFactory
+            consumer.Received += handler;
+
+            _channel.BasicConsume(topicName,
+                                 true,
+                                 consumer);
+
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                HostName = _rabbitMQConfiguration.HostName,
-                Port = _rabbitMQConfiguration.Port,
-                UserName = _rabbitMQConfiguration.Username,
-                Password = _rabbitMQConfiguration.Password
-            };
-
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(topicName,
-                                     false,
-                                     false,
-                                     false,
-                                     null);
-                var consumer = new EventingBasicConsumer(channel);
-
-                consumer.Received += (ch, e) =>
-                {
-                    var content = Encoding.UTF8.GetString(e.Body);
-                    result = JsonConvert.DeserializeObject<T>(content);
-                };
-
-                channel.BasicConsume(topicName,
-                                     true,
-                                     consumer);
+                if (_channel != null) _channel.Dispose();
+                if (_connection != null) _connection.Dispose();
             }
-
-            return Task.Run(() => result);
         }
     }
 }

@@ -20,6 +20,11 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+  couchbase:
+    image: couchbase
+    container_name: couchbase
+    ports:
+      - "8091:8091"
   vn.example.host.web:
     container_name: host
     environment:
@@ -33,8 +38,10 @@ services:
     links:
       - broker
       - mssql
+      - couchbase
     depends_on:
       - mssql
+      - couchbase
 
 networks: 
     bus:

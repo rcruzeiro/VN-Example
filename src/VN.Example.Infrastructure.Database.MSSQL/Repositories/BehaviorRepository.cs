@@ -36,7 +36,9 @@ namespace VN.Example.Infrastructure.Database.MSSQL.Repositories
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
-                _unitOfWork.Dispose();
+            {
+                if (_unitOfWork != null) _unitOfWork.Dispose();
+            }
         }
     }
 }
