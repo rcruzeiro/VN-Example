@@ -36,7 +36,7 @@ Caso não deseje utilizar o Docker, poderá também utilizar o Kestrel para inic
 A documentação da API (Swagger) poderá ser acessada em:
 
 ```console
-[Documentação da API](http://localhost:8081/docs)
+[http://localhost:8081/docs](http://localhost:8081/docs)
 ```
 
 ### Testing before the test
