@@ -13,3 +13,7 @@ stop:
 .PHONY: down
 down:
 	docker-compose down
+
+.PHONY: migrate
+migrate: up
+	cd src/VN.Example.Infrastructure.Database.MSSQL && dotnet ef database update
