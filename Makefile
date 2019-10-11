@@ -14,6 +14,10 @@ stop:
 down:
 	docker-compose down
 
+.PHONY: test
+test: up
+	dotnet test src/VN.Example.Tests
+
 .PHONY: migrate
 migrate: up
 	cd src/VN.Example.Infrastructure.Database.MSSQL && dotnet ef database update

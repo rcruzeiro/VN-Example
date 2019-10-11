@@ -9,7 +9,7 @@ namespace VN.Example.Platform.Application.BehaviorService
     {
         Task<IEnumerable<BehaviorDto>> GetBehaviorsByIPAsync(string ip, CancellationToken cancellationToken = default);
         Task<IEnumerable<BehaviorDto>> GetBehaviorsByPageNameAsync(string pageName, CancellationToken cancellationToken = default);
-        Task<BehaviorDto> GetBehaviorAsync(string ip, string pageName, string userAgent, CancellationToken cancellationToken = default);
+        Task<BehaviorDto> GetBehaviorAsync(string ip, string pageName, CancellationToken cancellationToken = default);
 
         Task CreateBehaviorAsync(CreateBehaviorDto dto, CancellationToken cancellationToken = default);
 

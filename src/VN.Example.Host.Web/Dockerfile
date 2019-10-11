@@ -1,18 +1,20 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
 
 EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /project
 
 COPY VN.Example.sln ./
 COPY src/VN.Example.Host.Web/VN.Example.Host.Web.csproj src/VN.Example.Host.Web/
+COPY src/VN.Example.Host.BehaviorCreated/VN.Example.Host.BehaviorCreated.csproj src/VN.Example.Host.BehaviorCreated/
 COPY src/VN.Example.Infrastructure/VN.Example.Infrastructure.csproj src/VN.Example.Infrastructure/
 COPY src/VN.Example.Platform/VN.Example.Platform.csproj src/VN.Example.Platform/
 COPY src/VN.Example.Infrastructure.Provider.MessageBus/VN.Example.Infrastructure.Provider.MessageBus.csproj src/VN.Example.Infrastructure.Provider.MessageBus/
 COPY src/VN.Example.Infrastructure.Database.MSSQL/VN.Example.Infrastructure.Database.MSSQL.csproj src/VN.Example.Infrastructure.Database.MSSQL/
 COPY src/VN.Example.Infrastructure.Database.Couchbase/VN.Example.Infrastructure.Database.Couchbase.csproj src/VN.Example.Infrastructure.Database.Couchbase/
+COPY src/VN.Example.Tests/VN.Example.Tests.csproj src/VN.Example.Tests/
 #COPY docker-compose.dcproj ./
 
 RUN dotnet restore VN.Example.sln

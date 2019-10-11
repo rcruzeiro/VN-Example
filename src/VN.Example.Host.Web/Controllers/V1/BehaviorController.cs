@@ -92,7 +92,6 @@ namespace VN.Example.Host.Web.Controllers.V1
         /// </summary>
         /// <param name="ip">Client IP.</param>
         /// <param name="pageName">Host Page Name.</param>
-        /// <param name="userAgent">Client User Agent.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Behavior data.</returns>
         /// <response code="200">Behavior for the informed parameters was found.</response>
@@ -103,20 +102,18 @@ namespace VN.Example.Host.Web.Controllers.V1
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [HttpGet("ip/{ip}/page/{pageName}/agent/{userAgent}")]
+        [HttpGet("ip/{ip}/page/{pageName}")]
         public async Task<IActionResult> GetBehavior([FromRoute]string ip,
                                                      [FromRoute]string pageName,
-                                                     [FromRoute]string userAgent,
                                                      CancellationToken cancellationToken = default)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(ip) ||
-                    string.IsNullOrWhiteSpace(pageName) ||
-                    string.IsNullOrWhiteSpace(userAgent))
+                    string.IsNullOrWhiteSpace(pageName))
                     return BadRequest();
 
-                var result = await _behaviorAppService.GetBehaviorAsync(ip, pageName, userAgent, cancellationToken);
+                var result = await _behaviorAppService.GetBehaviorAsync(ip, pageName, cancellationToken);
 
                 if (result == null) return NotFound();
 
@@ -145,7 +142,7 @@ namespace VN.Example.Host.Web.Controllers.V1
             {
                 await _behaviorAppService.DispatchBehavior(request, cancellationToken);
 
-                return Created("", null); // 201
+                return Created("order/confirmation", null); // 201
             }
             catch (Exception ex)
             {

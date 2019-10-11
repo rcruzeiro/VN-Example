@@ -2,18 +2,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-      <Folder Include="IoC\" />
+        <Folder Include="IoC\" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\VN.Example.Platform\VN.Example.Platform.csproj" />
-      <ProjectReference Include="..\VN.Example.Infrastructure.Provider.MessageBus\VN.Example.Infrastructure.Provider.MessageBus.csproj" />
-      <ProjectReference Include="..\VN.Example.Infrastructure.Database.MSSQL\VN.Example.Infrastructure.Database.MSSQL.csproj" />
-      <ProjectReference Include="..\VN.Example.Infrastructure.Database.Couchbase\VN.Example.Infrastructure.Database.Couchbase.csproj" />
+        <ProjectReference Include="..\VN.Example.Platform\VN.Example.Platform.csproj" />
+        <ProjectReference Include="..\VN.Example.Infrastructure.Provider.MessageBus\VN.Example.Infrastructure.Provider.MessageBus.csproj" />
+        <ProjectReference Include="..\VN.Example.Infrastructure.Database.MSSQL\VN.Example.Infrastructure.Database.MSSQL.csproj" />
+        <ProjectReference Include="..\VN.Example.Infrastructure.Database.Couchbase\VN.Example.Infrastructure.Database.Couchbase.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     </ItemGroup>
 </Project>

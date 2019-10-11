@@ -6,7 +6,6 @@ namespace VN.Example.Platform.Domain.BehaviorAggregation
 {
     public class Behavior : IEntity<long>, IAggregation
     {
-
         public long Id { get; private set; }
 
         public string IP { get; private set; }

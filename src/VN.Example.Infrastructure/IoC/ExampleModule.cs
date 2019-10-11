@@ -51,12 +51,22 @@ namespace VN.Example.Infrastructure.IoC
 
             services.AddTransient<BehaviorRepositoryResolver>(provider => key =>
             {
-                return key switch
+                switch (key)
+                {
+                    case "MSSQL":
+                        return provider.GetService<Database.MSSQL.Repositories.BehaviorRepository>();
+                    case "Couch":
+                        return provider.GetService<Database.Couchbase.Repositories.BehaviorRepository>();
+                    default:
+                        throw new KeyNotFoundException();
+                }
+                // switch new version (compatible with preview version)
+                /*return key switch
                 {
                     "MSSQL" => provider.GetService<Database.MSSQL.Repositories.BehaviorRepository>(),
                     "Couch" => provider.GetService<Database.Couchbase.Repositories.BehaviorRepository>(),
                     _ => throw new KeyNotFoundException(),
-                };
+                };*/
             });
 
             // application services

@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VN.Example.Host.BehaviorCre
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{6EB8D025-DBBB-4B70-B89A-0EB937D283EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VN.Example.Tests", "src\VN.Example.Tests\VN.Example.Tests.csproj", "{ECD39D25-3912-45C3-BC64-0D32AC592A03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +132,18 @@ Global
 		{9FE9C68F-88BA-41CB-8EFC-07C978AA038B}.Release|x64.Build.0 = Release|Any CPU
 		{9FE9C68F-88BA-41CB-8EFC-07C978AA038B}.Release|x86.ActiveCfg = Release|Any CPU
 		{9FE9C68F-88BA-41CB-8EFC-07C978AA038B}.Release|x86.Build.0 = Release|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Debug|x64.Build.0 = Debug|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Debug|x86.Build.0 = Debug|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Release|x64.ActiveCfg = Release|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Release|x64.Build.0 = Release|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECD39D25-3912-45C3-BC64-0D32AC592A03}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4B2EB6BE-CE38-4390-884F-7911130273D4} = {01289053-BF39-4FCD-AE99-4524052A182A}

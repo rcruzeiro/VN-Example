@@ -32,6 +32,8 @@ $ make migrate
 
 Caso não deseje utilizar o Docker, poderá também utilizar o Kestrel para iniciar e executar o projeto. Note que, neste cenário, ambas bases de dados deverão estar instaladas e acessíveis e seus respectivos hosts deverão ser definidos no arquivo de configuração da API (appsettings.Development.json) antes de prosseguir com os testes.
 
+Note também que, executando o projeto a partir do Visual Studio, deve-se selecionar a configuração *Multi*.
+
 ### Docs
 A documentação da API (Swagger) poderá ser acessada em:
 

@@ -69,27 +69,24 @@ namespace VN.Example.Platform.Application.BehaviorService
             }
         }
 
-        public async Task<BehaviorDto> GetBehaviorAsync(string ip, string pageName, string userAgent, CancellationToken cancellationToken = default)
+        public async Task<BehaviorDto> GetBehaviorAsync(string ip, string pageName, CancellationToken cancellationToken = default)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(ip)) throw new ArgumentNullException(nameof(ip));
                 if (string.IsNullOrWhiteSpace(pageName)) throw new ArgumentNullException(nameof(pageName));
-                if (string.IsNullOrWhiteSpace(userAgent)) throw new ArgumentNullException(nameof(userAgent));
 
-                var spec = new BehaviorByUniqueSpecification(ip, pageName, userAgent);
+                var spec = new BehaviorByIpAndPageNameSpecification(ip, pageName);
                 var behavior = await _behaviorRepository("MSSQL").GetBehaviors(spec, cancellationToken);
 
                 if (!behavior.Any()) return null;
 
-                if (behavior.Count() > 1) throw new InvalidOperationException("There is more behavior elements than expected.");
-
-                return behavior.Single().Assemble();
+                return behavior.Last().Assemble();
             }
             catch (Exception ex)
             {
                 throw new GetBehaviorException(
-                    $"An error occurred when trying to get behavior for ip {ip}, page name {pageName} and user agent {userAgent}. See inner exception for details.",
+                    $"An error occurred when trying to get behavior for ip {ip}, page name {pageName}. See inner exception for details.",
                     ex);
             }
         }
@@ -105,7 +102,7 @@ namespace VN.Example.Platform.Application.BehaviorService
                 await _behaviorRepository("MSSQL").CreateBehavior(behavior, cancellationToken);
 
                 // create behavior in Couchbase
-                await _behaviorRepository("Couch").CreateBehavior(behavior, cancellationToken);
+                //await _behaviorRepository("Couch").CreateBehavior(behavior, cancellationToken);
             }
             catch (Exception ex)
             {
