@@ -102,7 +102,7 @@ namespace VN.Example.Platform.Application.BehaviorService
                 await _behaviorRepository("MSSQL").CreateBehavior(behavior, cancellationToken);
 
                 // create behavior in Couchbase
-                //await _behaviorRepository("Couch").CreateBehavior(behavior, cancellationToken);
+                await _behaviorRepository("Couch").CreateBehavior(behavior, cancellationToken);
             }
             catch (Exception ex)
             {

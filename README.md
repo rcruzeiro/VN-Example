@@ -1,4 +1,4 @@
-# VN User Behavior Manager
+# VN User Behavior Test
 Microsserviço para Gerenciamento de Comportamento do Usuário visando atender cenário de teste prático VN.
 
 ### Before you start
