@@ -1,5 +1,5 @@
 # VN User Behavior Test
-Microsserviço para Gerenciamento de Comportamento do Usuário visando atender cenário de teste prático VN.
+Microsserviço para controle de Comportamento do Usuário visando atender cenário de teste prático VN.
 
 ### Before you start
 Este é um projeto de demonstração de um microsserviço desenhado seguindo princípios DDD, SOLID e RESTFUL.
@@ -11,7 +11,7 @@ Este projeto foi pensado visando atender o cenário proposto no teste de admiss�
  | ----- | -------------- | --------------------------------- |
  | GET   | /api/v1.0/Behavior/ip/{ip} | Utilize para consultar um comportamento pelo IP (retorna uma lista)  |
  | GET   | /api/v1.0/Behavior/page/{pageName}      | Utilize para consultar um comportamento pelo nome de uma página (retorna uma lista) |
- | GET   | /api/v1.0/Behavior/{ip}/{pageName}/{userAgent} | Utilize para consultar um comportamento exclusivo por sua chave composta (retorna um único objeto) |
+ | GET   | /api/v1.0/Behavior/ip/{ip}/page/{pageName} | Utilize para consultar um comportamento exclusivo por sua chave composta (retorna um único objeto) |
  | POST  | /api/v1.0/Behavior | Utilize para criar um comportamento |
 
 ### Optional Requisite
